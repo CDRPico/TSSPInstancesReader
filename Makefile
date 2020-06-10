@@ -15,9 +15,9 @@ DEFINES= -DIL_STD $(INCLUDES) $(DEFS) -DSYS_UNIX=1 -std=c++0x -Wall
 CFLAGS= -g $(DEFINES)
 CPPFLAGS= -g $(DEFINES)
 
-SRCS = src/InstanceSFLP.cpp main.cpp
+SRCS = src/UsefulFunctions.cpp src/GenerateInstanceSFLP.cpp src/InstanceSFLP.cpp main.cpp
 
-OBJS = src/InstanceSFLP.o main.o
+OBJS = src/UsefulFunctions.o src/GenerateInstanceSFLP.o src/InstanceSFLP.o main.o
 
 .c.o:
 	$(rm) $@

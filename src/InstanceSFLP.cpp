@@ -40,6 +40,7 @@ void InstanceSFLP::read_instance(ifstream &file){
         getline(file, line);
         split(line, row_values, ' ');
         demand[j] = atof(row_values[0].c_str());
+        cout << "the demand of client " << (j+1) << " is " << demand[j] << endl << endl;
         row_values.clear();
         size_t i = 0;
         while (i < nFacilities){
@@ -53,4 +54,21 @@ void InstanceSFLP::read_instance(ifstream &file){
         }
     }
 
+}
+
+void InstanceSFLP::compute_varcosts(){
+    //The original instance bring the total cost when a client is assigned to a certain facility
+    //This function computes the unitary cost
+    for (size_t i = 0; i < nFacilities; i++){
+        for (size_t j = 0; j < nClients; j++){
+            dist_costs[i][j] = dist_costs[i][j]/demand[j];
+        }
+    }
+}
+
+void InstanceSFLP::gen_mean_demand(){
+    mean_demand.resize(nClients);
+    for (size_t j = 0; j < nClients; j++){
+        mean_demand[j] = demand[j];
+    }
 }

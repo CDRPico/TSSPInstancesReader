@@ -28,7 +28,7 @@ class InstanceSFLP {
         //Stochastic entities
         vector<double> mean_demand;
         vector<double> stdev_demand;
-        vector<vector<double>> stoch_demand;
+        vector<vector<double>> stoch_param;
         
         //Solutions
         vector<double> x_bar;
@@ -42,6 +42,9 @@ class InstanceSFLP {
         //Since the instance gives the total cost to assign demand to a certain facility
         //We recompute the values in such a way that we get variable costs per unit of demand assigned
         void compute_varcosts();
+
+        //Set mean demand, we assume it is equal to the original instance demand
+        void gen_mean_demand();
 };
 
 #endif // INSTANCESFLP_H
