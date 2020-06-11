@@ -45,6 +45,8 @@ class InstanceSFLP {
 
         //Set mean demand, we assume it is equal to the original instance demand
         void gen_mean_demand();
+
+        void write_stoch(size_t &scenarios, string &name);
 };
 
 #endif // INSTANCESFLP_H

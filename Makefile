@@ -14,6 +14,7 @@ DEFS=
 DEFINES= -DIL_STD $(INCLUDES) $(DEFS) -DSYS_UNIX=1 -std=c++0x -Wall
 CFLAGS= -g $(DEFINES)
 CPPFLAGS= -g $(DEFINES)
+CXXFLAGS='-D_GLIBCXX_USE_CXX11_ABI=0'
 
 SRCS = src/UsefulFunctions.cpp src/GenerateInstanceSFLP.cpp src/InstanceSFLP.cpp main.cpp
 

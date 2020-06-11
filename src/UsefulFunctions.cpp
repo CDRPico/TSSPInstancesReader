@@ -29,7 +29,7 @@ size_t split(const string &txt, vector<string> &strs, char ch)
 
 //This function generates an standard deviation for a normal distribution, based on a unifor pdf
 //lower and upper limits are defined by the user [0,1] with respect to the mean
-vector<double> generate_stdev(vector<double> &mean, const double &ll, const double &ul){
+vector<double> generate_rand_stdev(vector<double> &mean, const double &ll, const double &ul){
     vector<double> stdev(mean.size());
     for (size_t i = 0; i < mean.size(); i++){
         default_random_engine generator;
@@ -38,3 +38,24 @@ vector<double> generate_stdev(vector<double> &mean, const double &ll, const doub
     }
     return stdev;
 }
+
+//This function generates an standard deviation for a normal distribution, based on a given factor
+//regarding the mean of the distribution
+vector<double> generate_stdev(vector<double> &mean, double factor){
+    vector<double> stdev(mean.size());
+    for (size_t i = 0; i < mean.size(); i++){
+        stdev[i] = mean[i]*factor;
+    }
+    return stdev;
+}
+
+
+template <typename T>
+string to_string_with_precision(const T a_value, int n)
+{
+    ostringstream out;
+    out.precision(n);
+    out << fixed << a_value;
+    return out.str();
+}
+template string to_string_with_precision(const double a_value, int n);

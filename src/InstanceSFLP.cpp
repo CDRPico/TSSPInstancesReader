@@ -40,7 +40,6 @@ void InstanceSFLP::read_instance(ifstream &file){
         getline(file, line);
         split(line, row_values, ' ');
         demand[j] = atof(row_values[0].c_str());
-        cout << "the demand of client " << (j+1) << " is " << demand[j] << endl << endl;
         row_values.clear();
         size_t i = 0;
         while (i < nFacilities){
@@ -48,7 +47,6 @@ void InstanceSFLP::read_instance(ifstream &file){
             split(line, row_values, ' ');
             for (size_t mv = 0; mv<row_values.size()-1; mv++){
                 dist_costs[i][j] = atof(row_values[mv].c_str());
-                cout << "Distribution cost from facility " << (i+1) << " to client " << (j+1) << " is " << dist_costs[i][j] << endl;
                 i++;
             }
         }
@@ -71,4 +69,21 @@ void InstanceSFLP::gen_mean_demand(){
     for (size_t j = 0; j < nClients; j++){
         mean_demand[j] = demand[j];
     }
+}
+
+void InstanceSFLP::write_stoch(size_t &scenarios, string &name){
+    double prob = 1.0/scenarios;
+    string head = to_string(scenarios) + "\n";
+    ofstream file;
+    file.open (name);
+    file << head;
+    for (size_t j = 0; j < nClients; j++){
+        string scen = to_string(prob);
+        for (size_t s = 0; s < scenarios; s++){
+            scen = scen + " " + to_string(stoch_param[j][s]);            
+        }
+        scen = scen + "\n";
+        file << scen;
+    }
+    file.close();
 }
