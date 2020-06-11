@@ -29,6 +29,8 @@ class InstanceSFLP {
         vector<double> mean_demand;
         vector<double> stdev_demand;
         vector<vector<double>> stoch_param;
+        size_t nScenarios;
+        vector<double> probability;
         
         //Solutions
         vector<double> x_bar;
@@ -46,7 +48,12 @@ class InstanceSFLP {
         //Set mean demand, we assume it is equal to the original instance demand
         void gen_mean_demand();
 
+        //Useful to generate a file containing data of a new stochastic instanc generated
         void write_stoch(size_t &scenarios, string &name);
+
+        //This functions reads stochastic instance already generated (stoch demand)
+        //The data is stored in stoch_param (it is used either to read or generate instance)
+        void read_stoch_data(ifstream &file);
 };
 
 #endif // INSTANCESFLP_H

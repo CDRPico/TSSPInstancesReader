@@ -77,13 +77,44 @@ void InstanceSFLP::write_stoch(size_t &scenarios, string &name){
     ofstream file;
     file.open (name);
     file << head;
-    for (size_t j = 0; j < nClients; j++){
+    for (size_t s = 0; s < scenarios; s++){
         string scen = to_string(prob);
-        for (size_t s = 0; s < scenarios; s++){
+        for (size_t j = 0; j < nClients; j++){
             scen = scen + " " + to_string(stoch_param[j][s]);            
         }
         scen = scen + "\n";
         file << scen;
     }
     file.close();
+}
+
+//This functions reads stochastic instance already generated (stoch demand)
+//The data is stored in stoch_param (it is used either to read or generate instance)
+void InstanceSFLP::read_stoch_data(ifstream &file){
+    string line;
+    stoch_param.clear();
+
+    //The first line contains the number of scenarios
+    getline(file, line);
+    vector<string> row_values;
+    split(line, row_values, ' ');
+    //Casting values, %zu stands for size_t
+    sscanf(row_values[0].c_str(), "%zu", &nScenarios);
+    row_values.clear();
+
+    stoch_param.resize(nClients);
+    for (size_t j = 0; j < nClients; j++){
+        stoch_param[j].resize(nScenarios);
+    }
+
+    probability.resize(nScenarios);
+    for (size_t s = 0; s < nScenarios; s++){
+        getline(file, line);
+        split(line, row_values, ' ');
+        probability[s] = atof(row_values[0].c_str());
+        for (size_t j = 0; j < nClients; j++){
+            stoch_param[j][s] = atof(row_values[j+1].c_str());
+        }
+        row_values.clear();
+    }
 }
