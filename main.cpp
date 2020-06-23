@@ -49,15 +49,14 @@ int main (){
         for (size_t i = 0; i < devs.size(); i++){
             for (size_t k = 0; k < scenarios.size(); k++){
                 GenerateRandomInstance rand_sflp;    
-                FL.stdev_demand = generate_stdev(FL.mean_demand, 0.3);
+                FL.stdev_demand = generate_stdev(FL.mean_demand, devs[i]);
                 rand_sflp.NormalDistribution(FL, FL.mean_demand, scenarios[k], FL.stdev_demand);
                 vector<string> row_values;
                 split(instances[m], row_values, '.');
                 string name_ins = row_values[0];
                 row_values.clear();
                 string st = to_string_with_precision(devs[i], 2);
-                string name = name_ins + "_" + to_string(FL.nFacilities) + "_" + to_string(FL.nClients) + "_" 
-                                + st + "_" + to_string(scenarios[k]) + ".txt";
+                string name = name_ins + "_" + st + "_" + to_string(scenarios[k]) + ".txt";
                 FL.write_stoch(scenarios[k], name);
             }
         }

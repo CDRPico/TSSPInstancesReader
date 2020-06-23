@@ -6,10 +6,10 @@
 rm = /bin/rm -f
 CC = g++
 #To compile as static library
-#PROGNAME = read_instances_TSSP.a
+#PROGNAME = libread_instances_TSSP.a
 #To compile as program
 PROGNAME = read_instances_TSSP
-INCLUDES = -I. -I~/cppProjects/tsspInstancesReader/TSSPInstancesReader/inc
+INCLUDES = -I. -I/inc
 LIBS = #-lm -lpthread -ldl
 
 DEFS= 
