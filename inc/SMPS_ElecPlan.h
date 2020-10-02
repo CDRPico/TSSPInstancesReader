@@ -6,6 +6,8 @@
 #ifndef SMPS_ELECPLAN_H
 #define SMPS_ELECPLAN_H
 
+#define _CRT_SECURE_NO_WARNINGS
+
 
 using namespace std;
 #include<iostream>

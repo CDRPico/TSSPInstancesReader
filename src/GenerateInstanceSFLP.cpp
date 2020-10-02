@@ -5,6 +5,8 @@
 #include"../inc/InstanceSFLP.h"
 #include"../inc/UsefulFunctions.h"
 
+#define _CRT_SECURE_NO_WARNINGS
+
 template<typename T>
 void GenerateRandomInstance::NormalDistribution(T &Instance, vector<double> &mean, const size_t &scenarios, vector<double> stdev){
     // This function takes arguments from normal distribution of certain parameters and 

@@ -3,6 +3,7 @@
 
 #include"../inc/UsefulFunctions.h"
 #include<algorithm>
+#define _CRT_SECURE_NO_WARNINGS
 
 //Takes a vector which contains a string and split it based on char ch definition
 //It returns a vector of strings where every position is a segment between two ch

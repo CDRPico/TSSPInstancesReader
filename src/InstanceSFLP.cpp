@@ -3,6 +3,7 @@
 
 #include"../inc/InstanceSFLP.h"
 #include"../inc/UsefulFunctions.h"
+#define _CRT_SECURE_NO_WARNINGS
 
 void InstanceSFLP::read_instance(ifstream &file){
     string line;

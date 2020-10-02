@@ -4,6 +4,8 @@
 #include"../inc/SMPS_ElecPlan.h"
 #include"../inc/UsefulFunctions.h"
 
+#define _CRT_SECURE_NO_WARNINGS
+
 void Inst_ElecPlan::read_time(ifstream &file) {
     string line;
 
