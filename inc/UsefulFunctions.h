@@ -22,3 +22,6 @@ vector<double> generate_stdev(vector<double> &mean, double = 0.1);
 //Round to string
 template <typename T>
 string to_string_with_precision(const T a_value, int = 2);
+
+//Find the index of a string into a vector
+size_t find_elem(vector<string> &lookhere1, vector<string> &lookhere2, string &lookfor);
