@@ -52,6 +52,10 @@ class Inst_ElecPlan {
         
 
         //Stochastic entities
+		vector<string> stoch_constr;
+		vector<vector<double>> indep_rhs_dist;
+		vector<vector<double>> marginal_prob;
+		vector<vector<double>> cum_marg_prob;
         vector<vector<double>> stoch_param;
         size_t nScenarios;
         vector<double> probability;
@@ -83,6 +87,14 @@ class Inst_ElecPlan {
 
         //Read RHS
         void read_rhs(ifstream &file, string &what_to_read, size_t &cline);
+
+		void cummalitve_prob();
+
+		//Generate random instances
+		//rows stand for random constraints
+		//columns stand for the scenarios that will be generated
+		vector<vector<double>> rnd_ins;
+		void generate_instances(size_t &n_scen);
 };
 
 
