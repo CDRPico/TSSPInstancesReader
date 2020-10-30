@@ -283,3 +283,97 @@ void Inst_ElecPlan::generate_instances(size_t &n_scen) {
 		}
 	}
 }
+
+
+void Inst_ElecPlan::write_st(string &name) {
+	double scenarios = rnd_ins[0].size();
+	double prob = 1.0 / scenarios;
+	string head = to_string(scenarios) + "\n";
+	ofstream file;
+	file.open(name);
+	file << head;
+	for (size_t s = 0; s < scenarios; s++) {
+		string scen = to_string(prob);
+		for (size_t i = 0; i < rnd_ins.size(); i++) {
+			scen = scen + " " + to_string(rnd_ins[i][s]);
+		}
+		scen = scen + "\n";
+		file << scen;
+	}
+	file.close();
+}
+
+void Inst_ElecPlan::read_st(ifstream &file) {
+	string line;
+	stoch_param.clear();
+
+	//The first line contains the number of scenarios
+	getline(file, line);
+	vector<string> row_values;
+	split(line, row_values, ' ');
+	//Casting values, %zu stands for size_t
+	sscanf(row_values[0].c_str(), "%zu", &nScenarios);
+	row_values.clear();
+
+	stoch_param.resize(stoch_constr.size());
+	for (size_t j = 0; j < stoch_constr.size(); j++) {
+		stoch_param[j].resize(nScenarios);
+	}
+
+	probability.resize(nScenarios);
+	for (size_t s = 0; s < nScenarios; s++) {
+		getline(file, line);
+		split(line, row_values, ' ');
+		probability[s] = atof(row_values[0].c_str());
+		for (size_t j = 0; j < stoch_constr.size(); j++) {
+			stoch_param[j][s] = atof(row_values[j + 1].c_str());
+		}
+		row_values.clear();
+	}
+}
+
+
+void Inst_ElecPlan::GenOrgDest() {
+	for (size_t i = 0; i < second_st_var.size(); i++) {
+		string var = second_st_var[i].substr(3, second_st_var[i].size());
+		string ori;
+		size_t ori1;
+		size_t fin;
+		for (size_t s = 0; s < var.size(); s++) {
+			char c = var[s];
+			if (isdigit(c)) {
+				ori.push_back(c);
+			}
+			else {
+				fin = s;
+				break;
+			}
+		}
+		sscanf(ori.c_str(), "%zu", &ori1);
+		origins.push_back(ori1);
+		ori.clear();
+		ori1 = 0;
+
+		var = var.substr(fin + 1, var.size());
+		sscanf(var.c_str(), "%zu", &ori1);
+		destinations.push_back(ori1);
+	}
+
+	for (size_t i = 0; i < first_st_var.size(); i++) {
+		string var = first_st_var[i].substr(4, first_st_var[i].size());
+		size_t ori1;
+		sscanf(var.c_str(), "%zu", &ori1);
+		terminals.push_back(ori1);
+	}
+}
+
+
+void Inst_ElecPlan::compute_expec_dem() {
+	expected_dem.resize(stoch_constr.size());
+	for (size_t j = 0; j < stoch_constr.size(); j++) {
+		expected_dem[j] = 0.0;
+		for (size_t s = 0; s < indep_rhs_dist[j].size(); s++) {
+			expected_dem[j] += indep_rhs_dist[j][s] * marginal_prob[j][s];
+		}
+	}
+}

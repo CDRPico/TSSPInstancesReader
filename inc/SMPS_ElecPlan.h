@@ -62,7 +62,7 @@ class Inst_ElecPlan {
         
         //Solutions
         vector<double> x_bar;
-        vector<vector<double>> y_bar;
+        vector<double> y_bar;
 
         Inst_ElecPlan(){};    
 
@@ -90,11 +90,25 @@ class Inst_ElecPlan {
 
 		void cummalitve_prob();
 
+		//to compute expected demands
+		vector<double> expected_dem;
+		void compute_expec_dem();
+
+		//Generate origins and destinations based on the existent arcs
+		void GenOrgDest();
+		vector<size_t> origins;
+		vector<size_t> destinations;
+		vector<size_t> terminals;
+
 		//Generate random instances
 		//rows stand for random constraints
 		//columns stand for the scenarios that will be generated
 		vector<vector<double>> rnd_ins;
 		void generate_instances(size_t &n_scen);
+
+		//wirte a file with instances generated
+		void write_st(string &name);
+		void read_st(ifstream &file);
 };
 
 
