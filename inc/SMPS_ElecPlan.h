@@ -62,7 +62,7 @@ class Inst_ElecPlan {
         
         //Solutions
         vector<double> x_bar;
-        vector<vector<<double>> y_bar;
+        vector<vector<double>> y_bar;
 
         Inst_ElecPlan(){};    
 
